@@ -13,10 +13,14 @@ const getAllPersonAuthorised = async (req, res)=>{
     const userId = req.userId;
     try{
         const user = await User.findOne({ where: { id: userId } });
-        const people = await user.getPeople();
-        console.log(user, people, userId);
-        
-        res.status(200).json(people);
+        if(!await user.getPeople()){
+            res.status(404).json({ message: "No data found" })
+        }else{
+            const people = await user.getPeople();
+            console.log(user, people, userId);
+            
+            res.status(200).json(people);
+        }
     }catch(error){
         res.status(500).json({ message: error.message });
     }
@@ -25,6 +29,8 @@ const getAllPersonAuthorised = async (req, res)=>{
 const addPerson = async (req, res)=>{
     try{
         const { fullName, fathersName, dateOfBirth, weddingAnniversary } = req.body;
+        console.log(fullName,fathersName,dateOfBirth,weddingAnniversary);
+                
         if(!fullName || !fathersName || !dateOfBirth){
             res.status(400).send("Please fill all the necessary details: Full Name, Father's Name and Date of Birth");
         }else{
@@ -45,8 +51,12 @@ const addPerson = async (req, res)=>{
 const getOnePerson = async (req, res)=>{
     const { id } = req.params;
     try{
-        const person = await Person.findOne({ where: { id } });
-        res.status(200).json(person);
+        if(!await Person.findOne({ where: { id } })){
+            res.status(404).json({ message: "Data not found" });
+        }else{
+            const person = await Person.findOne({ where: { id } });
+            res.status(200).json(person);
+        }
     }catch(error){
         res.status(500).json({ message: error.message });
     }

@@ -10,7 +10,7 @@ router.get('/authorised', jwtMiddleware, getAllPersonAuthorised);
 
 router.post('/add', jwtMiddleware, addPerson);
 
-router.get('/:id', getOnePerson);
+router.get('/:id', jwtMiddleware, getOnePerson);
 
 router.put('/:id/edit', jwtMiddleware, editPerson);
 
