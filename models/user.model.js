@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/database');
-const Person = require('./person.model')
 
 const User = sequelize.define('user', {
     id: {
@@ -20,6 +19,9 @@ const User = sequelize.define('user', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    profilePic: {
+        type: Sequelize.STRING,
     }
 },{
     timestamps: false

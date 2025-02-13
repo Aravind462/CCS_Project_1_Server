@@ -12,7 +12,7 @@ const jwtMiddleware = async (req, res, next)=>{
                 res.status(401).json({ message: "You are not authorized" });
             }else{
                 const userId = jwtResponse.userId;
-                // console.log(jwtResponse, userId);
+                console.log(jwtResponse, userId);
                 if(!await User.findOne({ where: { id: userId } })){
                     res.status(401).json({ message: "You are not authorized" });
                 }else{

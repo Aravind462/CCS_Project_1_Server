@@ -30,6 +30,9 @@ const addPerson = async (req, res)=>{
     try{
         const { fullName, fathersName, dateOfBirth, weddingAnniversary } = req.body;
         console.log(fullName,fathersName,dateOfBirth,weddingAnniversary);
+        console.log(req.body);
+        
+        console.log(typeof(weddingAnniversary));
                 
         if(!fullName || !fathersName || !dateOfBirth){
             res.status(400).send("Please fill all the necessary details: Full Name, Father's Name and Date of Birth");
